@@ -24,6 +24,9 @@ input {
 	background: rgba(0,0,0,.15); /* 15% opacity black */
 	border-radius: 3px;
 	box-shadow: inset 0px 3px rgba(0,0,0,.15);
+
+	transition-duration: 4s;
+  	transition-delay: 2s;
 }
 
 .first-row {
@@ -51,4 +54,22 @@ input {
 
 .operator {
 	background-color: #FFFFAA;
+}
+
+.spin {
+	transform: rotate(360deg);
+    transition-duration: 9s;
+    transition-delay: 0.5s;
+}
+
+.flip {
+	transform: rotateY(180deg);
+    transition-duration: 6s;
+    transition-delay: 0.5s;
+}
+
+.scaled {
+	transform: skew(160deg,160deg);
+    transition-duration: 3s;
+    transition-delay: 0.5s;
 }
