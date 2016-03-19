@@ -1,19 +1,14 @@
 $(document).ready(function() {
-
-	// prevents the return key from submitting the form
-	/* var element = document.querySelector("form");
-	element.addEventListener("submit", function(e) {
-  		e.preventDefault();
-  		alert("Form submission cancelled.");
-	}); */
-
-	document.onkeyup = keyCheck; // executes keyCheck whenever the user presses & releases a key
-
-	function keyCheck(e){
-		var keyID = e.keyCode;
+	// execute keyCheck whenever the user presses a key
+	document.onkeypress = keyCheck;
+	function keyCheck(event){
+		// trying to prevent backspace key from going back on chrome...
+		event.preventDefault();
+		event.stopPropagation();
+		
+		var keyID = event.which;
 		console.log(keyID);
 		var currScreenVal = $('.screen').val();
-
 		switch(keyID) {
 			case 48:
 				$('.screen').val(currScreenVal + 0);
@@ -61,21 +56,16 @@ $(document).ready(function() {
 				doIt();
 				break;
 			case 13: // enter or return
-				// in Chrome, there is an issue where the enter/return
-				// key throws an error to the doIt() function
-				e.preventDefault();
 				doIt();
 				break;
 			case 46:
 				// delete - only for numpads
-				e.preventDefault();
 				deleteIt();
 				break;
 			case 8:
 				// backspace - get this working
 				// this doesn't work in chrome
 				// as the browser goes back to the previous page
-				e.preventDefault();
 				deleteIt();
 				break;
 			default:
@@ -175,13 +165,13 @@ $(document).ready(function() {
 	}
 
 	function deleteIt(){
-		var currScreenVal = $('input').val();
+		var currScreenVal = $('.screen').val();
 		var currScreenValString = currScreenVal.toString();
 		var sliced = currScreenValString.slice(0, currScreenValString.length - 1);
 		currScreenVal = Number(sliced);
-		$('input').val(currScreenVal);
+		$('.screen').val(currScreenVal);
 		if (currScreenVal == 0) {
-			$('input').val('');
+			$('.screen').val('');
 		}
 	};
 });
