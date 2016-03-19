@@ -1,9 +1,16 @@
 $(document).ready(function() {
 
+	// prevents the return key from submitting the form
+	/* var element = document.querySelector("form");
+	element.addEventListener("submit", function(e) {
+  		e.preventDefault();
+  		alert("Form submission cancelled.");
+	}); */
+
 	document.onkeyup = keyCheck; // executes keyCheck whenever the user presses & releases a key
 
-	function keyCheck(){
-		var keyID = event.keyCode;
+	function keyCheck(e){
+		var keyID = e.keyCode;
 		console.log(keyID);
 		var currScreenVal = $('.screen').val();
 
@@ -53,20 +60,24 @@ $(document).ready(function() {
 			case 187: //equals sign to the left of delete
 				doIt();
 				break;
-			case 13: // enter or return - get this working
-				// e.preventDefault();
+			case 13: // enter or return
+				// in Chrome, there is an issue where the enter/return
+				// key throws an error to the doIt() function
+				e.preventDefault();
 				doIt();
 				break;
-			/* case 46:
-				// delete - get this working
+			case 46:
+				// delete - only for numpads
 				e.preventDefault();
-				var sliced = currScreenVal[0, -1];
-				$('.screen').val(sliced); */
-			/* case 8:
+				deleteIt();
+				break;
+			case 8:
 				// backspace - get this working
+				// this doesn't work in chrome
+				// as the browser goes back to the previous page
 				e.preventDefault();
-				var sliced = currScreenVal[0, -1];
-				$('.screen').val(sliced); */
+				deleteIt();
+				break;
 			default:
 				console.log("Something went wrong...");
 				break;
@@ -159,7 +170,18 @@ $(document).ready(function() {
 		} else if (onScreen == '180') {
 			$('#calculator').addClass('flip');
 		} else if (onScreen == '42') {
-			$('#calculator').addClass('scaled');
+			$('#calculator').addClass('skewed');
 		}
 	}
+
+	function deleteIt(){
+		var currScreenVal = $('input').val();
+		var currScreenValString = currScreenVal.toString();
+		var sliced = currScreenValString.slice(0, currScreenValString.length - 1);
+		currScreenVal = Number(sliced);
+		$('input').val(currScreenVal);
+		if (currScreenVal == 0) {
+			$('input').val('');
+		}
+	};
 });
