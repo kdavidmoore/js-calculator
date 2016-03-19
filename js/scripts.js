@@ -1,9 +1,17 @@
 $(document).ready(function() {
-	
+
+	// prevents the return key from submitting the form
+	/* var element = document.querySelector("form");
+	element.addEventListener("submit", function(e) {
+  		e.preventDefault();
+  		alert("Form submission cancelled.");
+	}); */
+
 	document.onkeyup = keyCheck; // executes keyCheck whenever the user presses & releases a key
 
-	function keyCheck(){
-		var keyID = event.keyCode;
+	function keyCheck(e){
+		var keyID = e.keyCode;
+		console.log(keyID);
 		var currScreenVal = $('.screen').val();
 
 		switch(keyID) {
@@ -37,39 +45,42 @@ $(document).ready(function() {
 			case 57:
 				$('.screen').val(currScreenVal + 9);
 				break;
-			// laptop keyboards will have problems with the operators
-			case 88: 
+			case 88: // this is just the character 'x'
 				$('.screen').val(currScreenVal + '*');	
 				break;			
-			case 191: 
+			case 191: // forward slash in the bottom-right corner of keyboard
 				$('.screen').val(currScreenVal + '/');	
 				break;				
-			case 189: 
+			case 189: // minus sign to the left of delete and equals
 				$('.screen').val(currScreenVal + '-');	
 				break;
-			case 107:
+			case 107: // this only works on a numpad
 				$('.screen').val(currScreenVal + '+');	
 				break;							
-			case 187:
-				//equal sign
+			case 187: //equals sign to the left of delete
 				doIt();
 				break;
-			case 13:
-				//enter sign
+			case 13: // enter or return
+				// in Chrome, there is an issue where the enter/return
+				// key throws an error to the doIt() function
+				e.preventDefault();
 				doIt();
 				break;
 			case 46:
-				// delete doesn't work yet
-				// event.preventDefault();
-				var sliced = currScreenVal[0, -1];
-				$('.screen').val(sliced);
+				// delete - only for numpads
+				e.preventDefault();
+				deleteIt();
+				break;
 			case 8:
-				// backspace doesn't work yet
-				// event.preventDefault();
-				var sliced = currScreenVal[0, -1];
-				$('.screen').val(sliced);
+				// backspace - get this working
+				// this doesn't work in chrome
+				// as the browser goes back to the previous page
+				e.preventDefault();
+				deleteIt();
+				break;
 			default:
 				console.log("Something went wrong...");
+				break;
 		}
 	}
 
@@ -128,7 +139,8 @@ $(document).ready(function() {
 				$('.screen').val('');
 				break;
 			default:
-				console.log("Something went wrong...");	
+				console.log("Something went wrong...");
+				break;
 		}
 	});
 
@@ -146,5 +158,30 @@ $(document).ready(function() {
 			}
 		}
 		$('.screen').val(total);
+
+		// Easter Eggs
+		var onScreen = $('.screen').val();
+		if (onScreen == '360') {
+			$('#calculator').addClass('spin');
+		} else if (Number(onScreen) > 1000000) {
+			window.location = "http://www.google.com/";
+		} else if (onScreen == '666') {
+			$('#le-container').html('<iframe width="100%" height="100%" src="https://www.youtube.com/embed/WxnN05vOuSM?autoplay=1"></iframe>');
+		} else if (onScreen == '180') {
+			$('#calculator').addClass('flip');
+		} else if (onScreen == '42') {
+			$('#calculator').addClass('skewed');
+		}
 	}
+
+	function deleteIt(){
+		var currScreenVal = $('input').val();
+		var currScreenValString = currScreenVal.toString();
+		var sliced = currScreenValString.slice(0, currScreenValString.length - 1);
+		currScreenVal = Number(sliced);
+		$('input').val(currScreenVal);
+		if (currScreenVal == 0) {
+			$('input').val('');
+		}
+	};
 });
