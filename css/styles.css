@@ -80,7 +80,3 @@ input[type="button"]:active {
     transition-duration: 3s;
     transition-delay: 0.5s;
 }
-
-#zero {
-	width: 132px;
-}

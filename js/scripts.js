@@ -51,6 +51,12 @@ $(document).ready(function() {
 				break;
 			case 107: // this only works on a numpad
 				$('.screen').val(currScreenVal + '+');	
+				break;
+			case 110: // this is the decimal point key on a numpad
+				$('.screen').val(currScreenVal + '.');
+				break;
+			case 46: // this is the period key
+				$('.screen').val(currScreenVal + '.');
 				break;							
 			case 187: //equals sign to the left of delete
 				doIt();
@@ -109,6 +115,9 @@ $(document).ready(function() {
 				break;
 			case 'nine':
 				$('.screen').val(currScreenVal + 9);
+				break;
+			case 'dot':
+				$('.screen').val(currScreenVal + '.');
 				break;
 			case 'muchoply': 
 				$('.screen').val(currScreenVal + '*');	
