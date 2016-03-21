@@ -1,11 +1,10 @@
 $(document).ready(function() {
 	// execute keyCheck whenever the user presses a key
-	document.onkeypress = keyCheck;
-	function keyCheck(event){
-		// trying to prevent backspace key from going back on chrome...
+	// document.onkeypress = keyCheck;
+	// function keyCheck() { }
+	$(document).keypress(function(){
+		// prevent backspace key from going back...doesn't work on chrome
 		event.preventDefault();
-		event.stopPropagation();
-		
 		var keyID = event.which;
 		console.log(keyID);
 		var currScreenVal = $('.screen').val();
@@ -78,7 +77,7 @@ $(document).ready(function() {
 				console.log("Something went wrong...");
 				break;
 		}
-	}
+	});
 
 	// add click listener to buttons
 	$('input').click(function(){
