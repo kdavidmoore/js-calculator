@@ -2,6 +2,6 @@
 
 The user can click on buttons or use the keyboard.
 
-## [Demo here](http://www.kdavidmoore.com/panama-papers)
+## [Demo here](http://www.kdavidmoore.com/calculator)
 
-[I learned this at DigitalCrafts](http://digitalcrafts.com)
+[I learned this at DigitalCrafts](https://www.digitalcrafts.com)
